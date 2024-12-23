@@ -3,7 +3,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './App.css';
 
-
 const App = () => {
   const [entryText, setEntryText] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -22,13 +21,14 @@ const App = () => {
       return;
     }
 
-    const sentiment = await analyzeData(entryText || "I'm Good!");
+    const { sentiment, suggestion } = await analyzeData(entryText || "I'm Good!");
 
     const newEntry = {
       id: Date.now(),
       text: entryText,
       date: selectedDate.toLocaleString(),
       sentiment,
+      suggestion,
     };
 
     setEntries((prevEntries) => [...prevEntries, newEntry]);
@@ -36,20 +36,27 @@ const App = () => {
   };
 
   const analyzeData = async (myFeelings) => {
+    const sentimentSuggestions = {
+      'Sad': 'Consider talking to a friend or taking a walk outside.',
+      'Happy': 'Enjoy the moment and spread positivity!',
+      'Confused': 'Take a deep breath and try to think things through.',
+      'Demotivated': 'Start with small tasks and give yourself a break.',
+      'Gratitude': 'Take a moment to reflect on what you’re thankful for.',
+      'Fear': 'It’s okay to be afraid, try to focus on what you can control.',
+      'Anger': 'Take a few deep breaths and reflect on the cause of your anger.',
+    };
+
     const mockSentiments = [
-      'Sad', 'Happy', 'Confused', 'Disturbed', 'Demotivated', 'Happiness',
-      'Excitement', 'Delight', 'Contentment', 'Amusement', 'Gratitude', 'Pride',
-      'Serenity', 'Hope', 'Love', 'Affection', 'Compassion', 'Warmth', 'Tenderness',
-      'Inspiration', 'Awe', 'Admiration', 'Enthusiasm', 'Relaxation', 'Peacefulness',
-      'Satisfaction', 'Anger', 'Rage', 'Annoyance', 'Irritation', 'Resentment',
-      'Sadness', 'Grief', 'Loneliness', 'Disappointment', 'Heartache', 'Despair',
-      'Fear', 'Anxiety', 'Nervousness', 'Worry', 'Insecurity', 'Panic', 'Apprehension',
-      'Disgust', 'Revulsion', 'Contempt', 'Loathing', 'Guilt', 'Shame', 'Regret',
-      'Embarrassment', 'Humiliation', 'Curiosity', 'Surprise', 'Nostalgia', 'Longing',
-      'Melancholy', 'Bittersweetness', 'Love-hate', 'Relief mixed with sadness', 
-      'Hope mixed with fear'
+      'Sad', 'Happy', 'Confused', 'Demotivated', 'Gratitude', 'Fear', 'Anger',
+      'Excitement', 'Contentment', 'Amusement', 'Surprise', 'Hope', 'Love',
+      'Compassion', 'Inspiration', 'Relief', 'Satisfaction'
     ];
-    return mockSentiments[Math.floor(Math.random() * mockSentiments.length)];
+
+    const sentiment = mockSentiments[Math.floor(Math.random() * mockSentiments.length)];
+
+    const suggestion = sentimentSuggestions[sentiment] || 'Take care of yourself!';
+
+    return { sentiment, suggestion };
   };
 
   const handleDeleteEntry = (id) => {
@@ -81,57 +88,44 @@ const App = () => {
         />
       </div>
 
-<div style={{ margin: '20px 0' }}>
-  <input
-    type="text"
-    value={entryText}
-    onChange={(e) => setEntryText(e.target.value)}
-    placeholder="Write your journal entry..."
-    style={{ padding: '10px', width: '80%' }}
-  />
-  <button onClick={handleAddEntry} style={{ padding: '10px', marginLeft: '10px' }}>
-    Add Entry
-  </button>
-</div>
-
-<div>
-  <h3>All Entries</h3>
-  {entries.length === 0 ? (
-    <p>No entries yet.</p>
-  ) : (
-    entries.map((entry) => (
-      <div key={entry.id} className="entry" style={{ border: '1px solid #ccc', margin: '10px 0', padding: '10px' }}>
-        <p><strong>{entry.date}</strong></p>
-        <p>{entry.text}</p>
-        <p style={{ fontWeight: 'bold', color: '#555' }}>Sentiment: {entry.sentiment}</p>
-        <div>
-          <button onClick={() => handleEditEntry(entry.id)} style={{ marginRight: '10px' }}>
-            Edit
-          </button>
-          <button onClick={() => handleDeleteEntry(entry.id)}>
-            Delete
-          </button>
-        </div>
+      <div style={{ margin: '20px 0' }}>
+        <input
+          type="text"
+          value={entryText}
+          onChange={(e) => setEntryText(e.target.value)}
+          placeholder="Write your journal entry..."
+          style={{ padding: '10px', width: '80%' }}
+        />
+        <button onClick={handleAddEntry} style={{ padding: '10px', marginLeft: '10px' }}>
+          Add Entry
+        </button>
       </div>
-    ))
-  )}
-</div>
 
+      <div>
+        <h3>All Entries</h3>
+        {entries.length === 0 ? (
+          <p>No entries yet.</p>
+        ) : (
+          entries.map((entry) => (
+            <div key={entry.id} className="entry" style={{ border: '1px solid #ccc', margin: '10px 0', padding: '10px' }}>
+              <p><strong>{entry.date}</strong></p>
+              <p>{entry.text}</p>
+              <p style={{ fontWeight: 'bold', color: '#555' }}>Sentiment: {entry.sentiment}</p>
+              <p><em>Suggestion: {entry.suggestion}</em></p>
+              <div>
+                <button onClick={() => handleEditEntry(entry.id)} style={{ marginRight: '10px' }}>
+                  Edit
+                </button>
+                <button onClick={() => handleDeleteEntry(entry.id)}>
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
