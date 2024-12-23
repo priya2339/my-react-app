@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
   margin: 0;
@@ -294,5 +294,232 @@ input:focus {
   .hh2{
     font-size: 1.5em;
     color: white;
+  }
+} */
+
+
+/* Body Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+  flex-direction: column;
+}
+
+/* Header Styles */
+h1 {
+  text-align: center;
+  width: 100%;
+  color: #333;
+  font-size: 3rem;
+  margin-top: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 2s ease-out;
+}
+
+/* React Calendar Styles */
+.react-calendar {
+  background-color: #aae2f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Calendar Tile Styles */
+.react-calendar__tile {
+  transition: all 0.3s ease;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.react-calendar__tile:hover {
+  background-color: #a6c1ee;
+  color: #545050;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+/* Input Field Styles */
+input {
+  padding: 15px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 15px;
+}
+
+input:focus {
+  border-color: #a6c1ee;
+  box-shadow: 0 0 5px rgba(166, 193, 238, 0.7);
+  animation: pulse 1s infinite;
+}
+
+/* Button Styles */
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  background-color: #a6c1ee;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 200px;
+}
+
+button:hover {
+  background-color: #4f3ca2;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Entry Styles */
+.entry {
+  background: linear-gradient(135deg, #fff, #f4f4f9);
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+  animation: fadeInUp 1s ease-out;
+  max-width: 600px;
+  width: 100%;
+}
+
+.entry:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.entry p {
+  margin: 5px 0;
+  color: #232121;
+}
+
+.entry .sentiment {
+  font-weight: bold;
+  color: #524e4e;
+}
+
+/* Page Layouts for Login and SignUp */
+.LoginPage,
+.greetingPage,
+.createAcc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.greetingPage {
+  background-color: #1cc5a9;
+  color: white;
+}
+
+.createAcc {
+  background: #11e9a8;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
+  padding: 10px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .LoginPage,
+  .greetingPage,
+  .createAcc {
+    width: 90%;
+    padding: 15px;
+  }
+
+  input {
+    width: 90%;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .react-calendar {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes focusPulse {
+  0% {
+    box-shadow: 0 0 0 rgba(16, 212, 163, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(16, 212, 163, 1);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(16, 212, 163, 0.5);
+  }
+}
+
+@keyframes buttonPop {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }

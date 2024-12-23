@@ -333,4 +333,26 @@
 //   );
 // };
 
-// export default MoodTracker;
+// export default MoodTracker;import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+const MoodTracker = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn) {
+      navigate("/login"); // Redirect to login page if not logged in
+    }
+  }, [navigate]);
+
+  return (
+    <div>
+      <h1>Mood Tracker</h1>
+      {/* Your Mood Tracker component code goes here */}
+    </div>
+  );
+};
+
+export default MoodTracker;
